@@ -1,0 +1,241 @@
+% ---------- ROMAANIMAINEN PREAMBLE (pieni sivukoko, proosa-asettelu) ----------
+
+\documentclass[
+  11pt,
+  twoside,
+  openright
+]{book}
+
+% --- Kieli ---
+\usepackage[finnish]{babel}
+
+% --- Fontit & merkistöt ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % pdfLaTeX; LuaLaTeXissa ei tarvita
+%\usepackage{lmodern}
+%\usepackage{tgpagella}
+\usepackage{libertinus}
+%\usepackage{tgtermes}
+
+% --- Sivukoko & marginaalit (trade paperback -henkinen) ---
+\usepackage[
+  paperwidth=130mm,
+  paperheight=198mm,
+  inner=18mm,
+  outer=15mm,
+  top=18mm,
+  bottom=22mm,
+  headheight=14pt,
+  headsep=8pt,
+  footskip=10mm
+]{geometry}
+
+\usepackage{tocloft}
+% Vähemmän ilmaa ennen luvun (chapter) merkintöjä sisällysluettelossa
+\setlength{\cftbeforechapskip}{2pt}
+
+% Pienennä sisällysluettelon fonttia:
+\renewcommand{\cftchapfont}{\small}
+\renewcommand{\cftsecfont}{\small}
+\renewcommand{\cftsubsecfont}{\small}
+
+\renewcommand{\cftchappagefont}{\small}
+\renewcommand{\cftsecpagefont}{\small}
+\renewcommand{\cftsubsecpagefont}{\small}
+
+% --- Typografia proosalle ---
+\usepackage{microtype}     % parempi tavutus & välit
+\usepackage{setspace}
+\setstretch{1.05}          % kevyt ilmavuus; vaihda 1.0 jos haluat tiukemman
+
+% Romaanityyli: sisennys, ei kappaleväliä
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+
+% Siistii proosaa: ei orpoja/leskirivejä, auttaa ylitäytöissä
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\emergencystretch=2em
+
+% --- Matematiikka (mukana, mutta ei pakota käyttöön) ---
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+
+% --- Linkit (ei värilaatikoita) ---
+\usepackage[hidelinks]{hyperref}
+
+% --- Otsikot: vain luvun numero (ei sanaa "Luku") ---
+\usepackage{titlesec}
+\newcommand{\NoHyphens}{%
+  \hyphenpenalty=10000%
+  \exhyphenpenalty=10000%
+}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\Huge\NoHyphens}
+  {\thechapter}
+  {8pt}
+  {\Huge\NoHyphens}
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+
+
+
+% --- Sivunumerot & ylätunnisteet (maltilliset) ---
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%lukujen aloituksien sivunumerot reunaan
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[LE,RO]{\thepage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+%\fancyhead[LE]{\nouppercase{\leftmark}}
+%\fancyhead[RO]{\nouppercase{\rightmark}}
+%\fancyfoot[CE,CO]{\thepage} %molemmat keskellä
+\fancyfoot[LE,RO]{\thepage}  % vasen parillisilla, oikea parittomilla
+%\renewcommand{\headrulewidth}{0.4pt}%viiva
+\renewcommand{\headrulewidth}{0pt}%ei viivaa
+
+\makeatletter
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\thechapter\quad #1}{}%
+}
+\makeatother
+
+\usepackage{emptypage}
+
+\usepackage[most]{tcolorbox}
+
+% Romaanimainen lainausblokki (vain vasen viiva)
+\newtcolorbox{romaanilainaus}[1][]{
+  enhanced,
+  breakable,
+  frame hidden,        % ei kehystä
+  borderline west={0.6pt}{0pt}{black!40}, % vasen viiva
+  colback=white,       % ei taustaväriä
+  left=12pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  before skip=10pt,
+  after skip=10pt,
+  fontupper=\itshape,  % kursiivi (poista jos et halua)
+  #1
+}
+
+% --- Meta (päivämäärä pois) ---
+\title{\textbf{Kirjan nimi}}
+\author{Kirjailija}
+\date{}
+
+
+\begin{document}
+
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+
+  \vspace*{0.18\textheight}
+
+  {\fontsize{30}{36}\selectfont\bfseries
+  Kirjan nimi\par}
+
+  \vspace{0.6cm}
+
+  {\Large\itshape
+  Alaotsikko\par}
+
+  \vspace{1.8cm}
+
+  {\Large
+  Kirjailija\par}
+
+  \vfill
+
+  {\small
+  Kustantaja / paikka\par}
+
+\newpage
+
+% --- KOLOFONI / TIETOSIVU) ---
+
+  \thispagestyle{empty}
+  \footnotesize
+  \setlength{\parindent}{0pt}
+
+  \vspace*{\fill}
+
+  \textcopyright\ Kirjailija ja Kustantaja \the\year\ \par
+  Kaikki oikeudet pidätetään.\par
+  % (halutessa lisenssiteksti tms.)
+
+  \vspace{1em}
+
+  n. painos \the\year \par
+  Painopaikka.\par
+  Kustantaja\par
+  ISBN XXX-XXX-XXXX-XX-X\par
+
+  \vspace{1em}
+
+  %Kannen suunnittelu: [nimi]\par
+  %Taitto: Texmaker\par
+  % Toimitus, kuvitus, käännös jne. tarpeen mukaan
+
+  \vspace{1em}
+
+  %\textit{[Mahdollinen motto / sitaatti / lyhyt huomautus]}\par
+
+  \vspace*{1cm}
+\end{titlepage}
+
+%sislu, sivunumeroa ei näytetä
+\begingroup
+  \pagestyle{empty} % myös mahdolliset seuraavat TOC-sivut tyhjiksi
+
+  \makeatletter
+  \let\ps@plain\ps@empty % TOC:n eka sivu (plain) => empty
+  \makeatother
+
+  \tableofcontents
+  \cleardoublepage
+\endgroup
+
+\chapter*{Prologi}
+\markboth{Prologi}{Prologi}
+\addcontentsline{toc}{chapter}{Prologi}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet diam sed sem eleifend porttitor. Nulla rutrum turpis lorem, quis facilisis dui gravida rhoncus. Morbi fermentum diam a dui sodales semper. Phasellus elementum, sapien condimentum convallis bibendum, velit justo tincidunt justo, quis pretium nulla felis id urna. Integer ultricies vel justo vel tempor. Phasellus congue, erat pulvinar tempor tempor, ante tellus posuere mi, in efficitur quam ipsum vel ex. Sed vel mi non urna volutpat vulputate. Praesent elementum felis quam, vel euismod sem faucibus at. Maecenas elit nibh, cursus id massa non, facilisis varius elit. Mauris malesuada tellus ut aliquam tristique.
+
+\chapter{Luku}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet diam sed sem eleifend porttitor. Nulla rutrum turpis lorem, quis facilisis dui gravida rhoncus. Morbi fermentum diam a dui sodales semper. Phasellus elementum, sapien condimentum convallis bibendum, velit justo tincidunt justo, quis pretium nulla felis id urna. Integer ultricies vel justo vel tempor. Phasellus congue, erat pulvinar tempor tempor, ante tellus posuere mi, in efficitur quam ipsum vel ex. Sed vel mi non urna volutpat vulputate. Praesent elementum felis quam, vel euismod sem faucibus at. Maecenas elit nibh, cursus id massa non, facilisis varius elit. Mauris malesuada tellus ut aliquam tristique.
+
+Morbi congue nulla quis arcu sagittis venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tristique massa ac mi sagittis, vel vehicula eros sodales. Duis egestas fermentum leo. Phasellus nec leo augue. Duis nec egestas magna. Vivamus a aliquam velit. Pellentesque hendrerit mauris nec leo dignissim, eu placerat velit dignissim. Pellentesque vitae consequat diam. Morbi dignissim fringilla tortor, eu maximus dolor volutpat non.
+
+Curabitur sapien ipsum, sollicitudin tristique felis eget, efficitur ullamcorper lectus. Cras ac quam ac risus scelerisque varius. Aenean lectus magna, auctor in nisi a, eleifend pretium libero. Nunc rhoncus ullamcorper nisl nec sollicitudin. Duis aliquam, turpis sit amet lacinia vehicula, magna sem efficitur lorem, ut consequat sapien eros id velit. In ac iaculis lectus. Fusce aliquam volutpat diam, nec dapibus tellus aliquet eget. Vivamus varius diam id vestibulum lobortis.
+
+Etiam imperdiet laoreet nunc eget malesuada. Morbi elit nisl, fringilla id congue eu, malesuada sit amet odio. Nulla feugiat mattis odio. Donec et quam et velit laoreet vestibulum. Phasellus molestie dolor et eros molestie malesuada. Ut varius vulputate dictum. Nam porta turpis sit amet ante eleifend, vitae egestas orci faucibus. Fusce imperdiet ultrices urna, sed tempus ipsum pulvinar et. In in metus ultrices, luctus orci in, laoreet risus. Aenean tempor dapibus elit ac fermentum. Cras quis arcu risus. Aenean luctus tempor fringilla. Phasellus et dolor ac enim pretium pellentesque quis nec neque.
+
+Praesent enim diam, aliquet malesuada leo egestas, aliquet congue est. Quisque congue fringilla dui vitae dapibus. Integer consectetur elit ac erat imperdiet egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod nisl non purus euismod imperdiet. Maecenas vehicula arcu tortor, eu venenatis ex pellentesque ut. Morbi vulputate tincidunt arcu, at scelerisque nulla venenatis ac. Cras ut vehicula nunc, in molestie risus. Suspendisse maximus gravida ligula, ac elementum nulla gravida eget. Mauris lobortis tristique leo id consequat. Donec et facilisis purus. Mauris egestas varius vehicula. Aliquam ut sodales est. Nam vel erat semper, lobortis nulla sed, gravida odio. Mauris ut fringilla metus.
+
+Morbi id aliquet odio, id vehicula lorem. Cras maximus rutrum felis, vel consectetur ipsum varius ac. Etiam eu porta tellus, quis consequat augue. Vestibulum non elit faucibus sem eleifend viverra. Nunc tincidunt odio eget ante lobortis elementum. In at tincidunt sapien. Sed bibendum velit ac ante congue, et cursus nisi placerat. In in erat ac sapien sollicitudin cursus. Nulla in augue elementum, malesuada lacus vitae, semper orci. Integer placerat auctor tellus, ut imperdiet magna ultricies vitae. Nullam euismod ex lacus, porttitor gravida leo aliquet facilisis. Etiam id finibus felis. Mauris laoreet neque ut nulla mattis egestas. Sed eros justo, mattis nec consectetur sed, porttitor non lacus. Vivamus vestibulum tempus tristique. Duis sollicitudin, lectus vel ullamcorper rutrum, leo sapien ultricies dui, sit amet convallis ex dolor eget ipsum.
+
+Pellentesque sed felis et leo hendrerit laoreet sit amet sed arcu. Cras rutrum eleifend purus. Donec euismod pretium elit. Sed condimentum elit in viverra congue. Fusce porttitor, lectus at volutpat dapibus, dui ante sollicitudin risus, at eleifend diam ligula sed mi. Quisque bibendum pharetra semper. Quisque eu fringilla neque. Morbi bibendum elit sit amet nisl placerat, id volutpat justo rhoncus. Nulla nunc eros, sollicitudin vitae commodo vitae, auctor in quam. Phasellus et congue sapien, id cursus sapien. Nullam lorem velit, posuere sit amet dignissim ut, iaculis quis risus.
+
+Nunc orci quam, tincidunt sit amet faucibus eu, auctor non justo. Etiam et quam dolor. Integer accumsan fringilla dui, ut vehicula orci. Fusce tincidunt ante vel sodales accumsan. Morbi arcu eros, condimentum eu tempus non, fringilla et tortor. Integer lacus quam, aliquet ut lacus eu, aliquam viverra ligula. Vivamus congue sodales orci, eu varius dui pellentesque a. Proin dapibus ultricies odio, ac mollis purus ultrices sit amet. Morbi blandit malesuada tortor, non congue orci consequat sed. Proin consequat, massa vel gravida finibus, libero eros sodales velit, et interdum velit ipsum vitae eros. Proin non nisi elit. Quisque ligula tellus, mattis quis quam ut, maximus posuere magna.
+
+Vivamus auctor convallis velit a scelerisque. Praesent venenatis augue eu nunc cursus, vitae maximus leo efficitur. Curabitur tincidunt facilisis aliquet. Praesent a pretium metus. Aliquam id pulvinar neque. Phasellus a magna quis nibh volutpat rhoncus et aliquet sapien. Nulla sit amet dolor ut purus ultrices fermentum ac sit amet lectus. Mauris velit justo, accumsan eu turpis ac, cursus auctor libero. Mauris rhoncus sodales quam non placerat. Donec nunc nulla, interdum ut velit sit amet, porta eleifend diam.
+
+Nulla vehicula, tellus aliquam lobortis ullamcorper, neque risus vulputate sapien, quis vestibulum lacus risus vel odio. Duis non nulla non erat rutrum vulputate at eget quam. Ut mollis ex mi, non scelerisque massa fermentum in. Mauris pellentesque id urna ac eleifend. Donec posuere nisi orci. Morbi hendrerit imperdiet lectus non feugiat. Maecenas vehicula pellentesque est a sodales. Quisque mauris velit, aliquam nec massa non, semper varius mi. Proin et dapibus est, et sagittis risus. Proin vitae justo eget ex gravida dictum at vel enim. Sed venenatis augue nisi, in dignissim neque finibus nec.
+
+Tässä on lainausta
+
+\begin{romaanilainaus}
+Nunc orci quam, tincidunt sit amet faucibus eu, auctor non justo. Etiam et quam dolor. Integer accumsan fringilla dui, ut vehicula orci.
+\end{romaanilainaus}
+
+
+\end{document}
